@@ -1,0 +1,66 @@
+{
+    "name": "planclass",
+
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "args": {
+            "VARIANT": "3.14-slim"
+        }
+    },
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "python.analysis.extraPaths": ["/app"]
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter"
+            ]
+        }
+    },
+
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": "false",
+            "username": "none",
+            "upgradePackages": "true"
+        },
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/node:2": {
+            "version": "lts"
+        },
+        "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+    },
+
+    "remoteUser": "root",
+
+    "runArgs": [
+        "--sysctl",
+        "net.ipv6.conf.all.disable_ipv6=1"
+    ],
+
+    "forwardPorts": [
+        8501,
+        4213
+    ],
+
+    "workspaceFolder": "/app",
+
+    "containerEnv": {
+        "CLAUDE_CONFIG_DIR": "/root/.claude"
+    },
+
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
+        "source=claude-code-config,target=/root/.claude,type=volume"
+    ],
+
+    "postCreateCommand": "python -m pip install --upgrade pip && python -m pip install -r /app/.devcontainer/requirements.txt",
+
+    "shutdownAction": "stopContainer"
+}
