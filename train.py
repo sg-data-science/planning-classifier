@@ -51,7 +51,7 @@ def parse_args():
     parser.add_argument(
         "--oof-output",
         type=Path,
-        help="optional csv of out-of-fold predictions for manual inspection",
+        help="optional write a csv of out-of-fold predictions for manual inspection",
     )
     return parser.parse_args()
 
