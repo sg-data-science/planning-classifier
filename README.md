@@ -19,10 +19,10 @@ conda activate planning-classifier
 Prints cross-validation results, then fits on all checked rows and saves the model.
 
 ```
-python train.py --input inputs/planning.xlsx --model-output models/housebuilding.joblib --oof-output outputs/train_oof.csv
+python train.py --input inputs/planning.xlsx --oof-output outputs/train_oof.csv
 ```
 
-Optional arguments are `--threshold`, `--folds` and `--seed`. The threshold is saved with the model. A `.json` file beside the model records the input file hash, row counts, CV metrics and library versions.
+Optional arguments are `--threshold`, `--folds` and `--seed`. The threshold is saved with the model. By default the model is written to `models/housebuilding_<YYYYmmdd_HHMMSS>.joblib` so each run creates a new file; use `--model-output` to choose a path. A `.json` file beside the model records the input file hash, row counts, CV metrics and library versions.
 
 ### Predict
 

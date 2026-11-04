@@ -28,9 +28,10 @@ def parse_args():
     )
     parser.add_argument(
         "--model-output",
-        required=True,
         type=Path,
-        help="where to write the model (joblib), metadata is written beside it as .json",
+        help="where to write the model (joblib), metadata is written beside it as .json "
+        "(default: models/housebuilding_<YYYYmmdd_HHMMSS>.joblib using the current "
+        "date and time, so each run writes a new file and never overwrites a model)",
     )
     parser.add_argument(
         "--threshold",
@@ -85,6 +86,9 @@ def cross_validate(df, skf, threshold):
 
 def main():
     args = parse_args()
+    if args.model_output is None:
+        stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        args.model_output = Path("models") / f"housebuilding_{stamp}.joblib"
 
     df = load_training(args.input)
     class_counts = df["ml_class"].value_counts()
