@@ -1,8 +1,8 @@
 # planning-classifier
 
-Classifies new house building applications from planning application proposal records, and estimates how many new homes are proposed.
+Classifies new house building applications from planning application proposal text, and estimates how many new homes are proposed.
 
-- **Stage 1, is it house building?** TF-IDF features and logistic regression, trained on the proposal text of manually checked rows.
+- **Stage 1, is it house building?** Traditional natural language processing (NLP) approach: TF-IDF features and logistic regression, trained on the proposal text of manually checked rows.
 - **Stage 2, how many homes?** Regex rules in `n_homes.py`, which read the number from the proposal text. The result is mapped to 11 classes: `1` to `10` and `more than 10`.
 
 ## Setup
