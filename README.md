@@ -11,6 +11,14 @@ Classifies new house building applications from planning application proposal te
 conda env create -f environment.yml
 conda activate planning-classifier
 ```
+## Folders
+Recommend using the relative folders in the repository for input and output files:
+
+| Folder | Contents | Tracked by git? |
+|---|---|---|
+| `inputs/` | Source planning data and labelled records | No |
+| `models/` | Trained models and their metadata | Only `housebuilding.joblib` and `housebuilding.json` |
+| `outputs/` | Predictions, out-of-fold predictions and validation errors | No |
 
 ## Usage
 
@@ -54,14 +62,6 @@ The predictions file must include the predicted negatives, otherwise missed hous
 ### Analysis
 
 `house_building.ipynb` explores the files written by the commands above, so run those first.
-
-## Folders
-
-| Folder | Contents | Tracked by git? |
-|---|---|---|
-| `inputs/` | Source planning data and labelled records | No |
-| `models/` | Trained models and their metadata | Only `housebuilding.joblib` and `housebuilding.json` |
-| `outputs/` | Predictions, out-of-fold predictions and validation errors | No |
 
 ## Labels
 
