@@ -9,7 +9,15 @@ import pandas as pd
 
 from config import add_n_homes, filter_in_scope
 
-DEFAULT_KEEP_COLS = ["FID", "reference", "local_auth", "url", "proposal", "dev_desc"]
+DEFAULT_KEEP_COLS = [
+    "FID",
+    "keyval",
+    "reference",
+    "local_auth",
+    "url",
+    "proposal",
+    "dev_desc",
+]
 N_HOMES_COLS = ["n_homes", "n_homes_class", "n_homes_method"]
 
 

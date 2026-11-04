@@ -22,7 +22,7 @@ def parse_args():
     parser.add_argument("--labels", required=True, type=Path, help="labelled csv")
     parser.add_argument(
         "--id-col",
-        default="FID",
+        default="keyval",
         help="col joining the two files (default: %(default)s)",
     )
     parser.add_argument(
