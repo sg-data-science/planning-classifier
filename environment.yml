@@ -9,5 +9,4 @@ dependencies:
   - jupyterlab
   - notebook
   - openpyxl
-  - black
-  - tokenize-rt
+  - ruff
