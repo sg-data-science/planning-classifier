@@ -1,0 +1,13 @@
+name: planning-classifier
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.14
+  - pandas
+  - scikit-learn
+  - jupyterlab
+  - notebook
+  - openpyxl
+  - black
+  - tokenize-rt
