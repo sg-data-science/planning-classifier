@@ -1,0 +1,11 @@
+name: planning-classifier
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.14
+  - pandas
+  - scikit-learn=1.9.1 # must match the version that saved models/housebuilding.joblib
+  - ipykernel
+  - openpyxl
+  - ruff

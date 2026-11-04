@@ -1,0 +1,16 @@
+{
+  "trained_at": "2026-11-04T10:10:37+00:00",
+  "input": "inputs\\planning.xlsx",
+  "input_sha256": "571fbfd33fec735c49e23b32042bf82896f4a82837f1de8165046deec949512b",
+  "rows": 1289,
+  "negative_rows": 709,
+  "positive_rows": 580,
+  "threshold": 0.25,
+  "folds": 5,
+  "seed": 42,
+  "cv_mean_precision": 0.8840526114079144,
+  "cv_mean_recall": 0.9689655172413794,
+  "cv_mean_f1": 0.9244434094368759,
+  "sklearn_version": "1.9.1",
+  "pandas_version": "3.0.6"
+}

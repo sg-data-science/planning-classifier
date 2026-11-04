@@ -217,4 +217,14 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-data/
+# data and generated files, folders are kept with .gitkeep
+inputs/*
+!inputs/.gitkeep
+models/*
+!models/.gitkeep
+!models/housebuilding.joblib
+!models/housebuilding.json
+outputs/*
+!outputs/.gitkeep
+
+.vscode/
