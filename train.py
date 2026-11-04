@@ -3,13 +3,12 @@
 import argparse
 import hashlib
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import joblib
 import pandas as pd
 import sklearn
-
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import StratifiedKFold, cross_val_predict
 
@@ -133,7 +132,7 @@ def main():
     print(f"\nWrote model to {args.model_output}")
 
     metadata = {
-        "trained_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "trained_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "input": str(args.input),
         "input_sha256": hashlib.sha256(args.input.read_bytes()).hexdigest(),
         "rows": len(df),

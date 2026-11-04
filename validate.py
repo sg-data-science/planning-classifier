@@ -5,7 +5,6 @@ import sys
 from pathlib import Path
 
 import pandas as pd
-
 from sklearn.metrics import confusion_matrix
 
 from config import add_n_homes, binary_scores, load_training
@@ -129,7 +128,7 @@ def print_stage1(val, args):
     print(pd.DataFrame(scores).round(4).to_string())
 
     cm = confusion_matrix(val["label"], val["is_housebuilding"])
-    print()
+    print("\nConfusion matrix, all rows")
     print(
         pd.DataFrame(
             cm,
@@ -145,7 +144,7 @@ def print_stage1(val, args):
         }
         for threshold in SWEEP_THRESHOLDS
     ]
-    print("\nOther thresholds")
+    print("\nOther thresholds, all rows")
     print(pd.DataFrame(sweep).round(4).to_string(index=False))
 
 

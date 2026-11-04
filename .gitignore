@@ -222,6 +222,8 @@ inputs/*
 !inputs/.gitkeep
 models/*
 !models/.gitkeep
+!models/housebuilding.joblib
+!models/housebuilding.json
 outputs/*
 !outputs/.gitkeep
 

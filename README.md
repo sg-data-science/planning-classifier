@@ -29,6 +29,8 @@ Optional arguments are `--threshold`, `--folds` and `--seed`. The threshold is s
 ```
 python predict.py --input "inputs/Planning_Applications__Official_PREMIUM_-_Scotland.csv" --model models/housebuilding.joblib --output outputs/scotland_pred.csv
 ```
+`models/housebuilding.joblib` is the model kept in git. `train.py` doesn't replace it, so after retraining set `--model` to the new file.
+
 Predictions are only made on a subset of all planning application records. The filter used is specified in `config.py`. 
 
 The filter keeps rows where `appl_desc_is` is one of `APPLICATION_TYPES` and `dev_desc_is` is one of `DEVELOPMENT_TYPES` or blank (see `config.py`). Use `--no-filter` to predict on every row. Other optional arguments are `--threshold`, `--text-col` and `--keep-cols`.
@@ -45,7 +47,7 @@ Compares a predictions file with another labelled copy of the same rows, joined 
 python validate.py --predictions outputs/scotland_pred.csv --labels "inputs/Planning_Applications__Official_PREMIUM_-_Scotland_labelled.csv" --train-input inputs/planning.xlsx --errors-output outputs/validation_errors.csv
 ```
 
-Prints stage 1 scores, a threshold table and stage 2 accuracy. `--train-input` adds scores that exclude text seen in training. If your labels use other column names, set `--id-col`, `--label-col` and `--n-homes-col`.
+Prints stage 1 scores, a threshold table and stage 2 accuracy. `--train-input` adds scores that exclude text seen in training, use these as the headline stage 1 scores. The confusion matrix and threshold table always cover all rows. If your labels use other column names, set `--id-col`, `--label-col` and `--n-homes-col`.
 
 The predictions file must include the predicted negatives, otherwise missed house building can't be counted.
 
@@ -58,10 +60,10 @@ The predictions file must include the predicted negatives, otherwise missed hous
 | Folder | Contents | Tracked by git? |
 |---|---|---|
 | `inputs/` | Source planning data and labelled records | No |
-| `models/` | Trained models and their metadata | No |
+| `models/` | Trained models and their metadata | Only `housebuilding.joblib` and `housebuilding.json` |
 | `outputs/` | Predictions, out-of-fold predictions and validation errors | No |
 
 ## Labels
 
 - `planning.xlsx`: rows checked by a human reviewer. These are the training data.
-- `..._Scotland_labelled.csv`: labelled by LLM from the proposal text, following the `planning.xlsx` conventions. It wasn't used in training, but it is the currently available comparison for validate.
+- `..._Scotland_labelled.csv`: labelled by LLM from the proposal text, following the `planning.xlsx` conventions. It wasn't used in training, but it is the currently available comparison for validate. Some of its rows have the same proposal text as the training data, so it isn't a fully independent test.
