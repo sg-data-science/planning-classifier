@@ -29,10 +29,11 @@ Optional arguments are `--threshold`, `--folds` and `--seed`. The threshold is s
 ```
 python predict.py --input "inputs/Planning_Applications__Official_PREMIUM_-_Scotland.csv" --model models/housebuilding.joblib --output outputs/scotland_pred.csv
 ```
-
-Writes one row per application that passes the filter, with `pred_prob`, `is_housebuilding`, `n_homes`, `n_homes_class` and `n_homes_method`. The `n_homes` columns are blank where `is_housebuilding` is 0.
+Predictions are only made on a subset of all planning application records. The filter used is specified in `config.py`. 
 
 The filter keeps rows where `appl_desc_is` is one of `APPLICATION_TYPES` and `dev_desc_is` is one of `DEVELOPMENT_TYPES` or blank (see `config.py`). Use `--no-filter` to predict on every row. Other optional arguments are `--threshold`, `--text-col` and `--keep-cols`.
+
+Writes one row per application that passes the filter, with `pred_prob`, `is_housebuilding`, `n_homes`, `n_homes_class` and `n_homes_method`. The `n_homes` columns are blank where `is_housebuilding` is 0.
 
 The same large site can appear in several applications (conditions, s42 and so on), so summing `n_homes` double counts.
 
@@ -54,14 +55,13 @@ The predictions file must include the predicted negatives, otherwise missed hous
 
 ## Folders
 
-| Folder | Contents | In git? |
+| Folder | Contents | Tracked by git? |
 |---|---|---|
-| `inputs/` | Source data and labelled files | No |
+| `inputs/` | Source planning data and labelled records | No |
 | `models/` | Trained models and their metadata | No |
 | `outputs/` | Predictions, out-of-fold predictions and validation errors | No |
-| `outputs/archive/` | The full notebook and files from before the refactor | No |
 
 ## Labels
 
 - `planning.xlsx`: rows checked by a human reviewer. These are the training data.
-- `..._Scotland_labelled.csv`: labelled by Claude from the proposal text, following the `planning.xlsx` conventions. It wasn't used in training, but it hasn't been human-checked, so edge cases may differ from a human reviewer's labels.
+- `..._Scotland_labelled.csv`: labelled by LLM from the proposal text, following the `planning.xlsx` conventions. It wasn't used in training, but it is the currently available comparison for validate.
