@@ -2,7 +2,7 @@
 
 Classifies new house building applications from planning application proposal text, and estimates how many new homes are proposed.
 
-- **Stage 1, is it house building?** Traditional natural language processing (NLP) approach: TF-IDF features and logistic regression, trained on the proposal text of manually checked rows.
+- **Stage 1, is it house building?** Traditional natural language processing (NLP) approach: A logistic regression classifier trained on manually labelled planning proposals, using TF-IDF features based on unigrams, bigrams and sequences of three to five characters.
 - **Stage 2, how many homes?** Regex rules in `n_homes.py`, which read the number from the proposal text. The result is mapped to 11 classes: `1` to `10` and `more than 10`.
 
 ## Setup
@@ -37,13 +37,13 @@ Optional arguments are `--threshold`, `--folds` and `--seed`. The threshold is s
 ```
 python predict.py --input "inputs/Planning_Applications__Official_PREMIUM_-_Scotland.csv" --model models/housebuilding.joblib --output outputs/scotland_pred.csv
 ```
-`models/housebuilding.joblib` is the model kept in git. `train.py` doesn't replace it, so after retraining set `--model` to the new file.
+`models/housebuilding.joblib` is the initial model kept in git. Each `train.py` run creates a new datetime stamped joblib file, so after retraining set `--model` to the new file.
 
 Predictions are only made on a subset of all planning application records. The filter used is specified in `config.py`. 
 
 The filter keeps rows where `appl_desc_is` is one of `APPLICATION_TYPES` and `dev_desc_is` is one of `DEVELOPMENT_TYPES` or blank (see `config.py`). Use `--no-filter` to predict on every row. Other optional arguments are `--threshold`, `--text-col` and `--keep-cols`.
 
-Writes one row per application that passes the filter, with `pred_prob`, `is_housebuilding`, `n_homes`, `n_homes_class` and `n_homes_method`. The `n_homes` columns are blank where `is_housebuilding` is 0.
+`predict.py` writes one row per application that passes the filter, with `pred_prob`, `is_housebuilding`, `n_homes`, `n_homes_class` and `n_homes_method`. The `n_homes` columns are blank where `is_housebuilding` is 0.
 
 The same large site can appear in several applications (conditions, s42 and so on), so summing `n_homes` double counts.
 
@@ -65,5 +65,5 @@ The predictions file must include the predicted negatives, otherwise missed hous
 
 ## Labels
 
-- `planning.xlsx`: rows checked by a human reviewer. These are the training data.
-- `..._Scotland_labelled.csv`: labelled by LLM from the proposal text, following the `planning.xlsx` conventions. It wasn't used in training, but it is the currently available comparison for validate. Some of its rows have the same proposal text as the training data, so it isn't a fully independent test.
+- `planning.xlsx`: The rows manually checked and labelled. These are the training data.
+- `..._Scotland_labelled.csv`: labelled by LLM from the proposal text, following the `planning.xlsx` examples as conventions. It wasn't used in training, but it is the currently available comparison for validate. Some of its rows have the same proposal text as the training data, so it isn't a fully independent test.
